@@ -1,0 +1,11 @@
+html {
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  color: rgb(55, 94, 171);
+}
+
+.article-item {
+  margin-bottom: 8px;
+}

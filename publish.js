@@ -30,6 +30,8 @@ module.exports = function () {
     unsafeCleanup: true
   })
 
+  comandante('cp', [__dirname + '/index.css', tmpdir.name])
+
   // fire up trumpet
   var tr = trumpet()
 
