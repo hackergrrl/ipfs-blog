@@ -42,20 +42,27 @@ module.exports = function () {
   // prepare to fill in articles
   var ws = tr.select('#blog-articles').createWriteStream()
 
+  files.sort(function compare(a, b) {
+    return fs.statSync(b).ctime - fs.statSync(a).ctime
+  })
+
   // process all articles
   files.forEach(function (file) {
-    // compile to HTML
     var articleMd = fs.readFileSync(file).toString()
-    var html = marked(articleMd)
+
+    // extract title
     var title = articleMd.substring(0, articleMd.indexOf('\n'))
       .replace(/#+ /, '')
+
+    // compile to HTML
+    var html = marked(articleMd)
     var fileHtml = file
       .replace('.md', '.html')
       .replace('.markdown', '.html')
 
     // write entry to index.html
     var stat = fs.statSync(file)
-    ws.write('\n<li>' + stat.ctime + ' - <a href="' + fileHtml + '">' + title + '</a></li>\n')
+    ws.write('\n<li class="article-item">' + stat.ctime + ' - <a href="' + fileHtml + '">' + title + '</a></li>\n')
 
     // write HTML
     var buf = new bl()
