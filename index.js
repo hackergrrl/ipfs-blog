@@ -14,6 +14,7 @@ x date on each article
 M3:
 - show blog title on all pages in dynamic fashion
 */
+
 var fs = require('fs')
 var marked = require('marked')
 var trumpet = require('trumpet')
@@ -111,19 +112,16 @@ module.exports = function () {
       }
     })
 
+  // publish to IPFS using local daemon
   function publish () {
     comandante('ipfs', ('add -rq ' + tmpdir.name).split(' '))
       .on('data', function (hash) {
         rootHash = hash.toString().trim()
       })
       .on('end', function () {
-        // console.log('https://ipfs.io/ipfs/' + rootHash)
-        console.log('http://localhost:9090/ipfs/' + rootHash)
+        console.log('https://ipfs.io/ipfs/' + rootHash)
+        // console.log('http://localhost:9090/ipfs/' + rootHash)
         tmpdir.removeCallback()
       })
   }
 }()
-
-function ipfsAddStream () {
-  return comandante('ipfs', ['add', '-q'])
-}

@@ -1,22 +1,19 @@
 {
   "name": "ipfs-blog",
-  "description": "opinionated append-only IPFS-powered blog",
+  "description": "opinionated IPFS-powered blog",
   "version": "0.0.0",
   "repository": {
     "url": "git://github.com/noffle/ipfs-blog.git"
   },
-  "main": "index.js",
-  "scripts": {
-    "test": "tape test/*.js"
+  "bin": {
+    "ipfs-blog": "index.js"
   },
+  "main": "index.js",
   "dependencies": {
     "bl": "^1.1.2",
     "comandante": "0.0.1",
     "marked": "^0.3.5",
     "tmp": "0.0.28",
     "trumpet": "^1.7.2"
-  },
-  "devDependencies": {
-    "tape": "*"
   }
 }
