@@ -30,7 +30,7 @@ wrote article.md
 https://ipfs.io/ipfs/QmR8kn6CQzBADU6BvHPnvnkpXKykkJVwjJVujPqZz3nWDj
 ```
 
-**TODO: screenshot**
+![](https://ipfs.io/ipfs/QmVdSnNEZS2fA9tKQSeQuPiCDtUQ1RZCF1tfkYKQnJawaY)
 
 ## License
 
