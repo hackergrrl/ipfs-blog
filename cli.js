@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var publish = require('./index')
 var fs = require('fs')
 
