@@ -30,7 +30,7 @@ wrote article.md
 https://ipfs.io/ipfs/QmR8kn6CQzBADU6BvHPnvnkpXKykkJVwjJVujPqZz3nWDj
 ```
 
-![](https://ipfs.io/ipfs/QmVdSnNEZS2fA9tKQSeQuPiCDtUQ1RZCF1tfkYKQnJawaY)
+![](https://raw.githubusercontent.com/noffle/ipfs-blog/master/static/screenshot.png)
 
 ## License
 
