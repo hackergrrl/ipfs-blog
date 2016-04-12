@@ -1,10 +1,13 @@
 /*
-publish:
+M1:
 - grab all *.(md|markdown) files
 - compile them all to HTML
-- inject css into each html page for styling
 - generate an index.html that links to all articles
 - add all to IPFS and output public gateway link
+
+M2:
+- inject css into each html page for styling
+- show titles on index.html
 */
 var fs = require('fs')
 var marked = require('marked')
@@ -40,14 +43,17 @@ module.exports = function () {
   // process all articles
   files.forEach(function (file) {
     // compile to HTML
-    var html = marked(fs.readFileSync(file).toString())
+    var articleMd = fs.readFileSync(file).toString()
+    var html = marked(articleMd)
+    var title = articleMd.substring(0, articleMd.indexOf('\n'))
+      .replace(/#+ /, '')
     var fileHtml = file
       .replace('.md', '.html')
       .replace('.markdown', '.html')
 
     // write entry to index.html
     var stat = fs.statSync(file)
-    ws.write('\n<li>' + stat.ctime + ' - <a href="' + fileHtml + '">' + file + '</a></li>\n')
+    ws.write('\n<li>' + stat.ctime + ' - <a href="' + fileHtml + '">' + title + '</a></li>\n')
 
     // write HTML
     var buf = new bl()
