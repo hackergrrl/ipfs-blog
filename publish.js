@@ -1,13 +1,15 @@
 /*
 M1:
-- grab all *.(md|markdown) files
-- compile them all to HTML
-- generate an index.html that links to all articles
-- add all to IPFS and output public gateway link
+x grab all *.(md|markdown) files
+x compile them all to HTML
+x generate an index.html that links to all articles
+x add all to IPFS and output public gateway link
 
 M2:
-- inject css into each html page for styling
-- show titles on index.html
+x inject css into index
+x show titles on index.html
+- inject css into each article
+- show blog title on all pages in dynamic fashion
 */
 var fs = require('fs')
 var marked = require('marked')
@@ -30,6 +32,7 @@ module.exports = function () {
     unsafeCleanup: true
   })
 
+  // Copy over CSS
   comandante('cp', [__dirname + '/index.css', tmpdir.name])
 
   // fire up trumpet
@@ -45,6 +48,8 @@ module.exports = function () {
   files.sort(function compare(a, b) {
     return fs.statSync(b).ctime - fs.statSync(a).ctime
   })
+
+  var articlesToWrite = files.length + 1
 
   // process all articles
   files.forEach(function (file) {
@@ -64,11 +69,26 @@ module.exports = function () {
     var stat = fs.statSync(file)
     ws.write('\n<li class="article-item">' + stat.ctime + ' - <a href="' + fileHtml + '">' + title + '</a></li>\n')
 
-    // write HTML
+    // prepare to write article into article.html template
+    var atr = trumpet()
+    var fname = path.join(tmpdir.name, fileHtml)
+    atr.pipe(fs.createWriteStream(fname))
+
+    // write HTML to article body
     var buf = new bl()
     buf.append(new Buffer(html))
-    var fname = path.join(tmpdir.name, fileHtml)
-    buf.pipe(fs.createWriteStream(fname))
+    buf.pipe(atr.select('#body').createWriteStream())
+    // buf.pipe(fs.createWriteStream(fname))
+
+    // use template
+    fs.createReadStream(__dirname + '/article.html').pipe(atr)
+
+    atr.on('end', function() {
+      articlesToWrite--
+      if (articlesToWrite <= 0) {
+        publish()
+      }
+    })
   })
 
   ws.end()
@@ -76,16 +96,23 @@ module.exports = function () {
   var rootHash = ''
   fs.createReadStream(__dirname + '/index.html').pipe(tr)
     .on('end', function () {
-      comandante('ipfs', ('add -rq ' + tmpdir.name).split(' '))
-        .on('data', function (hash) {
-          rootHash = hash.toString().trim()
-        })
-        .on('end', function () {
-          // console.log('https://ipfs.io/ipfs/' + rootHash)
-          console.log('http://localhost:9090/ipfs/' + rootHash)
-          tmpdir.removeCallback()
-        })
+      articlesToWrite--
+      if (articlesToWrite <= 0) {
+        publish()
+      }
     })
+
+  function publish () {
+    comandante('ipfs', ('add -rq ' + tmpdir.name).split(' '))
+      .on('data', function (hash) {
+        rootHash = hash.toString().trim()
+      })
+      .on('end', function () {
+        // console.log('https://ipfs.io/ipfs/' + rootHash)
+        console.log('http://localhost:9090/ipfs/' + rootHash)
+        tmpdir.removeCallback()
+      })
+  }
 }()
 
 function ipfsAddStream () {
