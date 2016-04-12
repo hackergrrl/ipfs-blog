@@ -23,14 +23,7 @@ var comandante = require('comandante')
 var tmp = require('tmp')
 var path = require('path')
 
-module.exports = function () {
-  var files = fs.readdirSync(process.cwd())
-
-  // filter non-markdown
-  files = files.filter(function isMarkdown (name) {
-    return name.endsWith('.markdown') || name.endsWith('.md')
-  })
-
+module.exports = function (files) {
   // create a temp dir
   var tmpdir = tmp.dirSync({
     unsafeCleanup: true
@@ -95,6 +88,7 @@ module.exports = function () {
 
     atr.on('end', function() {
       articlesToWrite--
+      console.error('wrote', title)
       if (articlesToWrite <= 0) {
         publish()
       }
@@ -124,4 +118,4 @@ module.exports = function () {
         tmpdir.removeCallback()
       })
   }
-}()
+}

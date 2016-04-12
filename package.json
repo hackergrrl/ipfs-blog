@@ -6,7 +6,7 @@
     "url": "git://github.com/noffle/ipfs-blog.git"
   },
   "bin": {
-    "ipfs-blog": "index.js"
+    "ipfs-blog": "cli.js"
   },
   "main": "index.js",
   "dependencies": {
