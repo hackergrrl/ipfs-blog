@@ -61,6 +61,7 @@ module.exports = function () {
     // extract title
     var title = articleMd.substring(0, articleMd.indexOf('\n'))
       .replace(/#+ /, '')
+    articleMd = articleMd.substring(articleMd.indexOf('\n')+1)
 
     // compile to HTML
     var html = marked(articleMd)
@@ -81,6 +82,9 @@ module.exports = function () {
     var buf = new bl()
     buf.append(new Buffer(html))
     buf.pipe(atr.select('#body').createWriteStream())
+
+    var tws = atr.select('.title').createWriteStream()
+    tws.end(title)
 
     var dws = atr.select('#date').createWriteStream()
     dws.end(stat.ctime.toString())

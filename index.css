@@ -7,14 +7,9 @@ body {
 }
 
 h1, h2, h3 {
-  color: rgb(55, 94, 171);
-  margin: 20px 5px;
+  color: rgb(171, 94, 55);
   font-weight: bold;
   padding: 0px;
-  -webkit-margin-before: 1.33em;
-  -webkit-margin-after: 1.33em;
-  -webkit-margin-start: 0px;
-  -webkit-margin-end: 0px;
 }
 
 .title {
@@ -22,7 +17,7 @@ h1, h2, h3 {
 }
 
 #blog-title {
-  background-color: #E0EBF5;
+  background-color: #F5EBE0;
   height: 24px;
   padding-top: 25px;
   padding-bottom: 20px;
@@ -39,7 +34,7 @@ h1, h2, h3 {
 
 h4 {
   color: #999;
-  margin: 20px;
+  margin: 25px;
   font-size: 16px;
   font-weight: normal;
 }
@@ -49,7 +44,7 @@ li {
 }
 
 p {
-  margin: 20px;
+  margin: 25px;
   -webkit-margin-before: 1em;
   -webkit-margin-after: 1em;
   -webkit-margin-start: 0px;
