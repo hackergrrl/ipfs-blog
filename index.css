@@ -2,10 +2,55 @@ html {
   font-family: Arial, sans-serif;
 }
 
-.title {
+body {
+  margin: 0;
+}
+
+h1, h2, h3 {
   color: rgb(55, 94, 171);
+  margin: 20px 5px;
+  font-weight: bold;
+  padding: 0px;
+  -webkit-margin-before: 1.33em;
+  -webkit-margin-after: 1.33em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+}
+
+.title {
+  margin-left: 15px;
+}
+
+#blog-title {
+  background-color: #E0EBF5;
+  height: 24px;
+  padding-top: 25px;
+  padding-bottom: 20px;
+  padding-left: 15px;
+  margin: 0;
+  color: #666;
+  font-size: 20px;
 }
 
 .article-item {
   margin-bottom: 8px;
+}
+
+li {
+  color: #222;
+}
+
+p {
+  margin: 20px;
+  -webkit-margin-before: 1em;
+  -webkit-margin-after: 1em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+}
+
+#body {
+  margin-left: 25px;
+  margin-right: 25px;
+  line-height: 1.3em;
+  font-size: 16px;
 }
