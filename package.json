@@ -1,7 +1,7 @@
 {
   "name": "ipfs-blog",
   "description": "opinionated IPFS-powered blog",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "repository": {
     "url": "git://github.com/noffle/ipfs-blog.git"
   },
