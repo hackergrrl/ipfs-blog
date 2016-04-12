@@ -8,7 +8,10 @@ x add all to IPFS and output public gateway link
 M2:
 x inject css into index
 x show titles on index.html
-- inject css into each article
+x inject css into each article
+x date on each article
+
+M3:
 - show blog title on all pages in dynamic fashion
 */
 var fs = require('fs')
@@ -78,7 +81,9 @@ module.exports = function () {
     var buf = new bl()
     buf.append(new Buffer(html))
     buf.pipe(atr.select('#body').createWriteStream())
-    // buf.pipe(fs.createWriteStream(fname))
+
+    var dws = atr.select('#date').createWriteStream()
+    dws.end(stat.ctime.toString())
 
     // use template
     fs.createReadStream(__dirname + '/article.html').pipe(atr)
