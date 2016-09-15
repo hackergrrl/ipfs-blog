@@ -43,7 +43,7 @@ module.exports = function (files) {
   var ws = tr.select('#blog-articles').createWriteStream()
 
   files.sort(function compare(a, b) {
-    return fs.statSync(b).ctime - fs.statSync(a).ctime
+    return fs.statSync(b).mtime - fs.statSync(a).mtime
   })
 
   var articlesToWrite = files.length + 1
@@ -65,7 +65,7 @@ module.exports = function (files) {
 
     // write entry to index.html
     var stat = fs.statSync(file)
-    ws.write('\n<li class="article-item">' + stat.ctime + ' - <a href="' + fileHtml + '">' + title + '</a></li>\n')
+    ws.write('\n<li class="article-item">' + stat.mtime + ' - <a href="' + fileHtml + '">' + title + '</a></li>\n')
 
     // prepare to write article into article.html template
     var atr = trumpet()
@@ -81,7 +81,7 @@ module.exports = function (files) {
     tws.end(title)
 
     var dws = atr.select('#date').createWriteStream()
-    dws.end(stat.ctime.toString())
+    dws.end(stat.mtime.toString())
 
     // use template
     fs.createReadStream(__dirname + '/article.html').pipe(atr)
