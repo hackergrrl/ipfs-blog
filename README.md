@@ -32,6 +32,14 @@ https://ipfs.io/ipfs/QmR8kn6CQzBADU6BvHPnvnkpXKykkJVwjJVujPqZz3nWDj
 
 ![](https://raw.githubusercontent.com/noffle/ipfs-blog/master/static/screenshot.png)
 
+Note that you'll need a local [IPFS daemon](https://dist.ipfs.io/#go-ipfs)
+running in order to publish.
+
+## Customization
+
+All flavour text is hard-coded for now. PRs that better facilitate user
+customization (blog name, dominant color, etc) are very welcome!
+
 ## License
 
 ISC
