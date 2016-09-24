@@ -45,6 +45,8 @@ module.exports = function (files, opts) {
   var bws = tr.select('#blog-title').createWriteStream()
   bws.end(opts.title)
 
+  tr.select('title').createWriteStream().end(opts.title)
+
   // prepare to fill in articles
   var ws = tr.select('#blog-articles').createWriteStream()
 
@@ -85,6 +87,8 @@ module.exports = function (files, opts) {
 
     var tws = atr.select('.title').createWriteStream()
     tws.end(title)
+
+    atr.select('title').createWriteStream().end(opts.title)
 
     var bws = atr.select('#blog-title').createWriteStream()
     bws.end(opts.title)
