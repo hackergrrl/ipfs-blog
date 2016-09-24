@@ -23,7 +23,10 @@ var comandante = require('comandante')
 var tmp = require('tmp')
 var path = require('path')
 
-module.exports = function (files) {
+module.exports = function (files, opts) {
+  opts = opts || {}
+  opts.title = opts.title || 'The Permanent Blog'
+
   // create a temp dir
   var tmpdir = tmp.dirSync({
     unsafeCleanup: true
@@ -38,6 +41,9 @@ module.exports = function (files) {
   // prepare to write index.html
   var index = path.join(tmpdir.name, 'index.html')
   tr.pipe(fs.createWriteStream(index))
+
+  var bws = tr.select('#blog-title').createWriteStream()
+  bws.end(opts.title)
 
   // prepare to fill in articles
   var ws = tr.select('#blog-articles').createWriteStream()
@@ -80,6 +86,9 @@ module.exports = function (files) {
     var tws = atr.select('.title').createWriteStream()
     tws.end(title)
 
+    var bws = atr.select('#blog-title').createWriteStream()
+    bws.end(opts.title)
+
     var dws = atr.select('#date').createWriteStream()
     dws.end(stat.mtime.toString())
 
@@ -114,7 +123,7 @@ module.exports = function (files) {
       })
       .on('end', function () {
         console.log('https://ipfs.io/ipfs/' + rootHash)
-        // console.log('http://localhost:9090/ipfs/' + rootHash)
+        console.log('http://localhost:8080/ipfs/' + rootHash)
         tmpdir.removeCallback()
       })
   }
